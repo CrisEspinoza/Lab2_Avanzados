@@ -8,8 +8,8 @@ int main()
 	// Se declaran las variables que se van a utilizar
     char name[25];
     int option,flag;
-    Matriz* matriz;
-    matriz = NULL; // Se inicializa la matriz como nula
+    Investments* investments;
+    investments = NULL; // Se inicializa la matriz como nula
  
     do
     {
@@ -32,9 +32,9 @@ int main()
                     {
                         printf("Ingrese nombre del archivo a leer\n");
                         scanf("%s",name); // Se carga el nombre del archivo
-                        matriz = loadMatriz(name); // Se lee el archivo y se almacena en memoria el grafo
+                        investments = loadInvestments(name); // Se lee el archivo y se almacena en memoria el grafo
                         //print(matriz);
-                        if (matriz != NULL)
+                        if (investments != NULL)
                             flag = 1 ;
                         break;
                     }
@@ -42,12 +42,27 @@ int main()
                     break;              
 
             case 2: system("clear");
+                    if (investments != NULL && flag == 1)
+            		{
+                        backtraking(investments);
+            			break;
+                   	}
+                    printf("Primero debe cargar alguna matriz, elegir opcion 1 \n");
+
                     break;     
 
             case 3: system("clear");
+                    if (investments != NULL && flag == 1)
+                    {
+                       saveTablero(investments); 
+                       break;
+                    }
+                    printf("Primero debe cargar alguna informacion, elegir opcion 1 \n");
                     break;
 
             case 4: system("clear");
+                    freeMemory(investments);
+                    flag = 0 ;
                     break;
 
             case 5: system("clear");

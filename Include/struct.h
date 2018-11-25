@@ -3,26 +3,34 @@
 
 // Definimos las estructuras a ocupar dentro de la aplicacion
 
-typedef struct List
+typedef struct InvestmentList
 {
-	int* path;
-	int weigth;
-}List;
+	int cost;
+	int utility;
+}InvestmentList;
 
-typedef struct Matriz
+typedef struct Investments
 {
-	int numbersNodo;
-	int** adjacency;
-	List* listPath;
-	int minimoPeso;
-	int combinaciones;
-}Matriz;
+	int initialCapital;
+	int numberTheInnvestments;
+	InvestmentList* investmentList; 
+	int* maximumUtility;
+	int maxUtility;
+	int capitalInvested;
+
+}Investments;
 
 // Definimos las funciones que se van a utilizar dentro del codigo 
 
-Matriz *loadMatriz(char nombre[]);
-void saveTablero (Matriz* matriz);
-void freeMemory(Matriz* matriz);
+Investments* loadInvestments (char nombre[]);
+void saveTablero (Investments* matriz);
+void freeMemory(Investments* matriz);
+void printInvestments(Investments *investments);
+Investments* createInvestments(int numberTheInnvestments);
+int* convertToBinary(int number, int length);
+int myPow(int base, int exponent);
+int* backtraking(Investments* investments);
+int benefitGranted (int* binaryList, Investments* investments);
 
 
 # endif

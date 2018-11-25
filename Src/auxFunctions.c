@@ -13,7 +13,7 @@ Entrada: Recibe la matriz que se utiliza actualmente.
 Procedimiento: Se encarga de ir imprimiendo cada uno de los caminos generados y su respectivo costo de viaje.
 Salida: -.
 */
-void printCurrent(Matriz* matriz)
+void printCurrent(Investments* matriz)
 {
     #ifdef DEBUG
     
@@ -27,14 +27,47 @@ sin necesidad que se tenga que volver a ejecutar.
 Salida: -.
 */
 
-void freeMemory(Matriz* matriz)
+void freeMemory(Investments* investments)
 {
+    //free(investments->investmentList);
+    free(investments->maximumUtility);
+    free(investments);
+}
+
+int myPow(int base, int exponent)
+{
+    int result = 1,i;
+    for (i = 0; i < exponent; i++)
+        result = result * base;
+    return result;
+}
+
+int* convertToBinary(int number, int length)
+{
+    int* binaryNumber = (int*)calloc(length, sizeof(int));
     int i;
-    for(i = 0 ; i < matriz->numbersNodo; i++)
-        free(matriz->adjacency[i]);
-    free(matriz->adjacency);
-    for(i = 0; i < (matriz->combinaciones + 1 ) ; i++)
-        free(matriz->listPath[i].path);
-    free(matriz->listPath);
-    free(matriz);
+    for (i = 0; i < length; i++)
+    {
+        binaryNumber[i] =  number % 2;;
+        number = number/2; 
+    }
+    return binaryNumber;
+}
+
+int benefitGranted (int* binaryList, Investments* investments)
+{
+    int benefit = 0,i,cost = 0;
+
+    for (i = 0 ; i < investments->numberTheInnvestments ; i++)
+    {
+        if (binaryList[i] == 1)
+        {
+            benefit = benefit + investments->investmentList[i].utility;
+            cost = cost + investments->investmentList[i].cost;
+            if (cost > investments->initialCapital)
+                return -1;
+        }
+    }
+
+    return benefit;
 }
