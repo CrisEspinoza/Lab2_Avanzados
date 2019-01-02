@@ -11,7 +11,7 @@ Investments* loadInvestments (char nombre[])
 	char* route = (char*)calloc(100, sizeof(char));
 	strcat(route, "../Documents/");
 	strcat(route, nombre);
-    strcat(route, ".txt");
+    strcat(route, ".in");
     file = fopen (route, "r"); // Estamos abriendo el file en modo lectura
 
     Investments* investments; // Se declara una variable de tipo matriz
@@ -41,11 +41,11 @@ Investments* loadInvestments (char nombre[])
         fscanf(file, "%d %d",&cost, &utility);
         investments->investmentList[counter].cost = cost;
         investments->investmentList[counter].utility = utility;
-        printf("%d %d \n" , cost,utility);
+        //printf("%d %d \n" , cost,utility);
         counter++;
     }
 
-    printInvestments(investments);
+    //printInvestments(investments);
     
     fclose(file); // Cerramos el file
  
@@ -53,13 +53,13 @@ Investments* loadInvestments (char nombre[])
 
 }
 
-void saveTablero (Investments* investments)
+void saveInvestments (Investments* investments)
 {   
     FILE *txt;  // Incialzamos una variable de tipo FILE para poder trabajar con los archivos
     txt = fopen("../Out/Salida.out", "wt");
     int i ;
 
-    fprintf(txt,"%d %d ",investments->capitalInvested, investments->maxUtility); // Se coloca el peso total ocupado en la ruta minima obtenida y se pone en el archivo
+    fprintf(txt,"%d %d ",investments->maxUtility.cost, investments->maxUtility.utility); // Se coloca el peso total ocupado en la ruta minima obtenida y se pone en el archivo
     fprintf(txt, "\n"); // S ehace un salto de linea en ele archio
 
     for (i = 0 ; i < investments->numberTheInnvestments ; i++)

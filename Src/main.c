@@ -30,7 +30,7 @@ int main()
             case 1: system("clear");
                     if (flag == 0)
                     {
-                        printf("Ingrese nombre del archivo a leer\n");
+                        printf("Ingrese nombre del archivo a leer (Sin extension) \n");
                         scanf("%s",name); // Se carga el nombre del archivo
                         investments = loadInvestments(name); // Se lee el archivo y se almacena en memoria el grafo
                         //print(matriz);
@@ -45,19 +45,19 @@ int main()
                     if (investments != NULL && flag == 1)
             		{
                         backtraking(investments);
+                        flag = 2;
             			break;
                    	}
                     printf("Primero debe cargar alguna matriz, elegir opcion 1 \n");
-
                     break;     
 
             case 3: system("clear");
-                    if (investments != NULL && flag == 1)
+                    if (investments != NULL && flag == 2)
                     {
-                       saveTablero(investments); 
+                       saveInvestments(investments); 
                        break;
                     }
-                    printf("Primero debe cargar alguna informacion, elegir opcion 1 \n");
+                    printf("Primero debe cargar alguna informacion, elegir opcion 2 \n");
                     break;
 
             case 4: system("clear");

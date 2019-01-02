@@ -15,22 +15,22 @@ typedef struct Investments
 	int numberTheInnvestments;
 	InvestmentList* investmentList; 
 	int* maximumUtility;
-	int maxUtility;
-	int capitalInvested;
+	InvestmentList maxUtility;
 
 }Investments;
 
 // Definimos las funciones que se van a utilizar dentro del codigo 
 
 Investments* loadInvestments (char nombre[]);
-void saveTablero (Investments* matriz);
+void saveInvestments (Investments* matriz);
 void freeMemory(Investments* matriz);
 void printInvestments(Investments *investments);
 Investments* createInvestments(int numberTheInnvestments);
 int* convertToBinary(int number, int length);
 int myPow(int base, int exponent);
 int* backtraking(Investments* investments);
-int benefitGranted (int* binaryList, Investments* investments);
+InvestmentList benefitGranted (int* binaryList, Investments* investments);
+void printCurrent(Investments* investments,InvestmentList investmentsAux);
 
 
 # endif

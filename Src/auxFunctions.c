@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "../Include/struct.h"
 
-#define DEBUG
+//#define DEBUG
 
 // **************** Funciones auxiliares ******************
 
@@ -13,10 +13,19 @@ Entrada: Recibe la matriz que se utiliza actualmente.
 Procedimiento: Se encarga de ir imprimiendo cada uno de los caminos generados y su respectivo costo de viaje.
 Salida: -.
 */
-void printCurrent(Investments* matriz)
+void printCurrent(Investments* investments,InvestmentList investmentsAux)
 {
     #ifdef DEBUG
-    
+    printf("\n");
+    printf("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| \n");
+    printf("| Beneficio antiguo: %d  | | Beneficio nuevo: %d | \n",investments->maxUtility.utility,investmentsAux.utility);
+    printf("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| \n");
+    printf("\n");
+    printf("Presione una tecla para continuar ... .. . \n");
+    while(getchar() != '\n')
+    {
+        printf("Tecla errónea...\n");
+    }
     #endif
 }
 
@@ -54,18 +63,25 @@ int* convertToBinary(int number, int length)
     return binaryNumber;
 }
 
-int benefitGranted (int* binaryList, Investments* investments)
+InvestmentList benefitGranted (int* binaryList, Investments* investments)
 {
-    int benefit = 0,i,cost = 0;
+    InvestmentList benefit;
+    benefit.cost = 0;
+    benefit.utility = 0;
+    int i,cost = 0;
 
     for (i = 0 ; i < investments->numberTheInnvestments ; i++)
     {
         if (binaryList[i] == 1)
         {
-            benefit = benefit + investments->investmentList[i].utility;
-            cost = cost + investments->investmentList[i].cost;
-            if (cost > investments->initialCapital)
-                return -1;
+            benefit.utility = benefit.utility + investments->investmentList[i].utility;
+            benefit.cost = benefit.cost + investments->investmentList[i].cost;
+            if (benefit.cost > investments->initialCapital)
+            {
+                benefit.utility = 0;
+                benefit.cost = -1;
+                return benefit;
+            }
         }
     }
 
